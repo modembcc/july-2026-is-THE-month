@@ -1,237 +1,169 @@
-# 4-Week Sprint Plan — July 2026
+# 4-Week Sprint Plan v3 — 2 Projects in 2 Weeks + Project 3 + Launch
 
-**Goal:** Two portfolio-ready projects + stronger fundamentals → more hireable in one month.
+**Goal:** 3 portfolio-ready projects, then one confident networking/interview push in week 4.
 
-**Projects:**
-1. **Esports Odds & Integrity Tracker** — .NET/C#, PostgreSQL, React, Docker (Web app)
-2. **Sake Search** — Go terminal app for Japanese alcohol discovery with anime references & SG availability
+**What changed from v2:** No networking until there's something to show. Esports Tracker (originally 2 weeks) compresses to 1 week — its tasks are boilerplate-heavy (CRUD, EF Core, Docker, deploy), which is exactly where AI drafting saves the most time. Sake Search keeps its original pace since it's new-language learning — AI speeds up typing, not understanding. Weeks 3–4 open up for a new project + a real launch.
 
-**Schedule:** Wed → Mon = build days. Tuesday = review & plan next sprint.
+**Schedule:** Wed → Mon = build days. Tuesday = review & plan.
 
 ---
 
-## Daily Recurring Tasks (every day, before project work)
+## Weeks 1–2: Build Mode (No Networking)
 
-| Task | Time |
-|---|---|
-| 1 LeetCode problem (easy/medium, arrays/hashmaps/strings) | 20 min |
-| Git practice: use branches, write real commit messages, open PRs to your own main | Baked into project work |
-| Push something to GitHub (code, docs, anything) | Non-negotiable |
+100% focus on shipping. LeetCode + build + push, same as always. Networking resumes in Week 3 once you've got projects to point people to.
 
----
+### Week 1 — July 1–7: Esports Odds & Integrity Tracker (full stack, compressed)
 
-## Week 1 — July 1–8: Foundation + Esports Backend
+Merging the original two-week plan into one — lean hard on AI for scaffolding/config, and still do the review/explain-back step on everything so you can defend it later.
 
-**Theme:** Set up your dev environment, learn .NET basics, get the API skeleton running.
+**Wed July 1 — Setup + Data Model**
+- Install .NET SDK, PostgreSQL, Docker Desktop, editor
+- Create + pin both GitHub repos (yes, scaffold the Sake repo too, just don't touch it yet)
+- Scaffold ASP.NET Web API, design schema (Teams/Matches/Odds/Markets) **[hand-write the schema]**
+- EF Core + Npgsql setup, first migration **[AI-fast]**
 
-### Wednesday July 1 — Environment Day
-- Install .NET SDK, PostgreSQL, Docker Desktop, Rider or VS Code with C# extension
-- Create GitHub repos for both projects (with .gitignore, LICENSE, empty README)
-- Pin both repos on your GitHub profile
-- Scaffold a new ASP.NET Web API project (dotnet new webapi)
-- Make your first real commit with a message like "feat: scaffold ASP.NET API project"
+**Thu July 2 — Endpoints + External Data**
+- CRUD endpoints for Teams/Matches, proper status codes/validation **[AI-fast draft, you fix edge cases]**
+- Pick an esports API (PandaScore/Riot/OpenDota), background job to pull match data **[AI-fast]**
+- Test with curl/Postman
 
-### Thursday July 2 — Data Model Day
-- Design the database schema: Teams, Matches, Odds, Markets
-- Set up Entity Framework Core with PostgreSQL (Npgsql)
-- Write and run your first migration
-- SQL practice: write raw queries for your schema (joins across teams/matches)
+**Fri July 3 — Odds + Anomaly Detection**
+- Odds API integration, `GET /matches/{id}/odds` **[AI-fast]**
+- Anomaly logic: odds shift > X% in Y hours **[hand-write — your headline interview topic]**
+- `GET /matches/anomalies`, 2 unit tests
 
-### Friday July 3 — First Endpoints
-- Build CRUD endpoints for Teams and Matches
-- Proper HTTP status codes (201 on create, 404 on not found, 400 on bad input)
-- Input validation and error handling
-- Test with curl or Postman — screenshot results for your README
+**Sat July 4 — Frontend Scaffold + Visualization**
+- React (Vite + TS): navbar, match list, match detail **[AI-fast scaffold]**
+- Odds-over-time line chart, crowd confidence meter **[AI-fast chart boilerplate]**
 
-### Saturday July 4 — External Data
-- Research esports APIs (PandaScore, Riot API, OpenDota) — pick one, get an API key
-- Build a background service or scheduled job to pull live match data
-- Map external API response to your data model
-- Store fetched data in PostgreSQL
+**Sun July 5 — Anomaly Dashboard + Docker**
+- Dashboard page with filtering and suspicion indicators **[AI-fast]**
+- Dockerfiles for API + frontend, docker-compose.yml **[AI-fast — read every line]**
+- Verify full stack runs with `docker-compose up`
 
-### Sunday July 5 — Odds Integration
-- Research prediction market / odds APIs (Polymarket, public bookmaker APIs)
-- Build a service to pull odds data and associate it with matches
-- Create an endpoint: GET /matches/{id}/odds — returns match info + crowd sentiment
-- Start writing the "What is this?" section of your README
+**Mon July 6 — Deploy + Document**
+- Deploy to Railway/Render/Azure free tier, env vars set properly
+- README overhaul: description, screenshots, tech stack, how to run, live link **[AI drafts structure, you write "why I built this"]**
+- Clean commit history
 
-### Monday July 6 — Anomaly Detection MVP
-- Build the match anomaly logic: flag matches where odds shifted > X% in the last Y hours before the result
-- Create endpoint: GET /matches/anomalies — returns flagged matches with context
-- Write at least 2 unit tests for your anomaly detection logic
-- Update README with API documentation
+**Tue July 7 — Sprint Review**
+- Fully deployed and documented? Can you demo and explain every decision unaided?
+- Retro: what did AI save the most time on? What took just as long as expected?
+- Mental shift: Go tomorrow
 
-### Tuesday July 7 — Sprint Review 1
-- Review: do all endpoints work? Is the code committed and pushed?
-- Retrospective: what took longer than expected? What do you need to learn?
-- Plan adjustments for Week 2
-- Write a short "Week 1" section in your README (what you built, what you learned)
+### Week 2 — July 8–14: Sake Search (Go) — original pace kept
 
----
+This one stays close to the original timeline. New language, new paradigms (goroutines, TUI) — worth the full week to actually absorb it, not just generate it.
 
-## Week 2 — July 8–15: Esports Frontend + Deploy
+**Wed July 8 — Go Day 1**
+- "A Tour of Go" (2–3 hrs) **[hand-write along with it]**
+- Hello-world CLI with a flag, first commit
 
-**Theme:** Make it visual, Dockerize it, ship it live.
+**Thu July 9 — API Research & Client**
+- Pick a data source or plan a curated local JSON dataset **[hand-write the decision]**
+- HTTP client + JSON parsing into structs **[AI-fast, but read the Go idioms closely]**
 
-### Wednesday July 8 — Frontend Scaffold
-- Set up React app (Vite + TypeScript recommended)
-- Build the layout: navbar, match list page, match detail page
-- Fetch data from your API and display a list of matches
-- If new to React: spend first 2 hours on a crash course, then build
+**Fri July 10 — Core Search + TUI**
+- Search with partial/fuzzy matching **[hand-write — likely interview topic]**
+- Bubble Tea TUI for interactive experience **[AI-fast]**
 
-### Thursday July 9 — Data Visualization
-- Add a chart library (Recharts or Chart.js)
-- Match detail page: show odds movement over time as a line chart
-- Add the "crowd confidence meter" — a simple visual indicator
-- Color-code upsets vs expected results
+**Sat July 11 — Anime Reference Mode**
+- Local dataset mapping drinks to anime appearances
+- `--anime`, `--episode`, `--appearances` commands **[AI-fast for data structure, hand-write lookup logic]**
 
-### Friday July 10 — Anomaly Dashboard
-- Build an anomaly dashboard page showing flagged matches
-- Visual indicators for suspicion level (odds swing magnitude)
-- Add filtering: by game, by date range, by suspicion threshold
-- Polish the UI — it doesn't need to be beautiful, but it needs to be clear
+**Sun July 12 — SG Availability**
+- Research where Japanese alcohol is sold in SG (Don Don Donki, liquor shops, online)
+- Availability/pricing module, currency formatting **[AI-fast]**
 
-### Saturday July 11 — Docker Day
-- Write a Dockerfile for the .NET API
-- Write a Dockerfile for the React frontend
-- Create docker-compose.yml: API + PostgreSQL + frontend
-- Verify the whole stack runs with one `docker-compose up`
+**Mon July 13 — Translation & Polish**
+- Translation layer, `--lang jp` flag **[AI-fast]**
+- Tests for search/translation/availability, build the binary
 
-### Sunday July 12 — Deploy
-- Deploy to a free host (Railway, Render, or Azure free tier)
-- Set up environment variables properly (no secrets in code)
-- Verify it works on a public URL
-- Add the live link to your README and GitHub repo description
-
-### Monday July 13 — Polish & Document
-- README overhaul: project description, screenshots, tech stack, how to run locally, how to run with Docker, API docs, live demo link
-- Add a "Lessons Learned" section
-- Clean up any messy code, add comments where logic is complex
-- Make sure commit history tells a coherent story
-
-### Tuesday July 14 — Sprint Review 2
-- Review: is Project 1 fully deployed and documented?
-- Can you demo it to someone and explain every technical decision?
-- Retrospective: what went well, what would you do differently?
-- Mental shift: you're switching languages tomorrow
+**Tue July 14 — Sprint Review**
+- End-to-end check, edge cases (no data, JP-only names)
+- Retro: Go vs. C# — write this down, it's a great interview answer
+- **Both projects done. This is the last day networking stays paused.**
 
 ---
 
-## Week 3 — July 15–22: Sake Search (Go)
+## Week 3 — July 15–21: Project 3
 
-**Theme:** Learn Go by building. Ship a polished terminal app.
+You said you'll land on the idea closer to the time — good call, no reason to lock it in now. When you do, drop it in and I'll fill this week out properly (data model day, core feature day, integration day, polish day — same shape as the other two). A few things to decide once you pick it:
+- What gap does it fill? (different language/stack than C#/.NET and Go? A different domain than sports-data or search?)
+- Does it need a backend, or can it be simpler (CLI, script, extension) to keep the timeline realistic given it's compressed into one week?
 
-### Wednesday July 15 — Go Day 1
-- Install Go, set up your editor (VS Code + Go extension or GoLand)
-- Go through "A Tour of Go" (2-3 hours — focus on structs, interfaces, goroutines, error handling)
-- Write a "hello world" CLI that accepts a flag and prints formatted output
-- Commit: "feat: initial Go CLI scaffold"
+**Networking resumes this week, lightly:**
+- Daily 20–30 min: 2–3 connections, comment on posts — no public project posts yet, save that for when all 3 are live
+- 1–2 low-key applications if a role is a genuinely good fit already
 
-### Thursday July 16 — API Research & Client
-- Research public APIs for alcohol/sake data (Untappd, sake databases, liquor store APIs in SG)
-- If no clean API exists: plan a local JSON dataset you'll curate manually as MVP
-- Build an HTTP client in Go to fetch from your chosen data source
-- Parse JSON response into Go structs
-
-### Friday July 17 — Core Search
-- Implement search: user types a drink name (romaji, English, or Japanese)
-- Return: name (JP + EN), type, ABV, tasting notes, price range
-- Handle partial matches and fuzzy search
-- Add a Bubble Tea TUI (terminal UI) for a polished interactive experience
-
-### Saturday July 18 — Anime Reference Mode
-- Build a local dataset: map drinks to anime appearances (Botan Kamiina, Bartender, Isekai Izakaya, etc.)
-- Command: `sakesearch --anime "botan kamiina"` → lists drinks featured in that show
-- Command: `sakesearch --episode "botan kamiina s1e3"` → specific episode references
-- Reverse lookup: `sakesearch "junmai daiginjo" --appearances` → which anime featured it
-
-### Sunday July 19 — Singapore Availability
-- Research: where is Japanese alcohol sold in SG? (Don Don Donki, liquor shops, online stores)
-- Build a module that checks availability/pricing from public sources
-- Output: "Available at Don Don Donki (Orchard) — ~$45 SGD"
-- Add currency formatting and location-aware output
-
-### Monday July 20 — Translation & Polish
-- Integrate a translation layer for Japanese → English drink names and descriptions
-- Add `--lang jp` flag to toggle Japanese output
-- Write comprehensive tests for search, translation, and availability logic
-- Build the binary: `go build` → test the .exe works standalone
-
-### Tuesday July 21 — Sprint Review 3
-- Review: does the app work end-to-end?
-- Test edge cases: drinks with no data, no availability, Japanese-only names
-- Retrospective: how does Go feel compared to Java and C#?
-- Start thinking about packaging and distribution
+### Tue July 21 — Sprint Review
+- Project 3 working end-to-end?
+- Retro + prep for launch week
 
 ---
 
-## Week 4 — July 22–29: Package, Polish, Present
+## Week 4 — July 22–29: Package, Launch, Present
 
-**Theme:** Make everything portfolio-ready. You're not building new features — you're shipping.
+**Theme:** This is the week the pause on networking pays off — you launch with 3 finished things to point at, not a half-built profile.
 
-### Wednesday July 22 — Sake Search Packaging
-- Create a GitHub Release with pre-built binaries (Linux, macOS, Windows)
-- Write a killer README: what it does, GIF/screenshot of it in action, install instructions, usage examples
-- Add a "Built With" section and architecture overview
-- Make the repo visually appealing (good formatting, maybe a logo/banner)
+**Wed July 22 — Project 3 Packaging**
+- README, demo/screenshots, deployment or release build
+- Networking: 2–3 connections
 
-### Thursday July 23 — Esports Tracker Final Polish
-- Fix any bugs from the deployed version
-- Add one more visual touch (loading states, empty states, error states)
-- Performance check: are API responses fast? Add caching if needed
-- Final README review — would a stranger understand this in 60 seconds?
+**Thu July 23 — Cross-Project Polish**
+- Bug fixes across all 3, loading/empty/error states, caching if needed
+- Networking: light
 
-### Friday July 24 — LinkedIn & Portfolio Day
-- Update LinkedIn headline and About section
-- Add both projects as LinkedIn "Projects" with descriptions and links
-- Write a short LinkedIn post about what you built and learned this month
-- Update your resume with the new tech stack (C#/.NET, Go, PostgreSQL, Docker, React)
+**Fri July 24 — The Launch**
+- LinkedIn About section + headline overhaul, pin all 3 projects with links
+- Resume update with full stack (C#/.NET, Go, [Project 3 stack], PostgreSQL, Docker, React)
+- **Write and post the LinkedIn post** — now it lands with substance behind it
+- Networking: this is the day it goes public
 
-### Saturday July 25 — Interview Prep: Your Projects
-- Write down the "story" for each project: why you built it, hard decisions, tradeoffs
-- Practice explaining your anomaly detection logic (whiteboard-style)
-- Practice explaining Go concurrency choices in Sake Search
-- Prepare for "what would you add next?" questions
+**Sat July 25 — Interview Prep: Your Projects**
+- Write the "story" for each project — why, hard decisions, tradeoffs **[use your NOTES.md explain-backs as raw material]**
+- Practice explaining anomaly detection, Go concurrency, and Project 3's core logic out loud
 
-### Sunday July 26 — Interview Prep: Fundamentals
-- Review your SQL: can you write a query to find the top 5 most upset matches?
-- Review Docker: can you explain your docker-compose.yml line by line?
-- Review Git: can you walk through your commit history and explain your workflow?
-- Do 3-5 LeetCode problems (medium) as a final push
+**Sun July 26 — Interview Prep: Fundamentals**
+- SQL: top-5-upsets query from memory
+- Docker: explain docker-compose.yml line by line, unaided
+- Git: walk your own commit history
+- 3–5 LeetCode (medium)
 
-### Monday July 27 — Stretch Goals (pick any)
-- Add CI/CD with GitHub Actions (even a simple lint + test pipeline)
-- Write a blog post about building one of the projects (dev.to or hashnode)
-- Contribute to an open-source project (even a small docs fix)
-- Set up the X / Instagram page for one of your projects
+**Mon July 27 — Stretch Goals (pick any)**
+- CI/CD with GitHub Actions
+- Blog post about one project
+- One open-source contribution
+- Networking: 2–3 applications, follow up on any replies
 
-### Tuesday July 28 — Final Sprint Review
-- Both projects deployed/packaged and documented?
-- GitHub profile looks professional? (bio, pinned repos, green graph)
-- LinkedIn updated?
-- Can you confidently talk about every technology you used?
-- **You're done. Start applying.**
+**Tue July 28 — Final Review**
+- All 3 projects deployed/packaged and documented?
+- GitHub profile professional, LinkedIn live and updated?
+- Can you confidently talk about every technology across all 3 projects?
+- **You're done. Start applying in earnest.**
 
 ---
 
-## Success Metrics
+## Success Metrics (v3)
 
-By July 28, you should have:
+By July 28:
 
-- [ ] 2 pinned GitHub repos with clean READMEs and live demos/downloads
+**Build:**
+- [ ] 3 pinned GitHub repos with clean READMEs and live demos/downloads
 - [ ] ~28 days of GitHub contribution history
-- [ ] Working knowledge of C#/.NET, Go, PostgreSQL, Docker, React
-- [ ] A deployed web app anyone can visit
-- [ ] A downloadable Go binary anyone can run
-- [ ] Updated LinkedIn with project links
+- [ ] Working knowledge of C#/.NET, Go, [Project 3 stack], PostgreSQL, Docker, React
+- [ ] NOTES.md per project — your interview cheat sheets
 - [ ] ~28 LeetCode problems solved
-- [ ] Confidence to talk about your projects in an interview
+
+**Network/Launch:**
+- [ ] LinkedIn live with all 3 projects, posted once you had something real to show
+- [ ] Some networking groundwork from week 3 already in motion before launch
+- [ ] Applications going out from week 4 onward
 
 ---
 
 ## Notes
-
-- **If you fall behind:** Cut scope on the current task, don't skip days. A working feature with rough edges beats an unfinished polished one.
-- **If you get stuck:** Timebox to 30 minutes, then ask for help (Stack Overflow, Discord, or come back here).
-- **If you finish early:** Add tests, add CI/CD, write a blog post, or start the next week early.
-- **The daily LeetCode is non-negotiable.** 20 minutes. Set a timer. Stop when it rings even if you didn't solve it — read the solution and move on.
+- **Why the pause made sense:** networking before you have proof is just noise for both you and the people you'd reach out to. Waiting until week 3–4 means every message and post lands with something concrete behind it.
+- **The explain-back habit still matters most now**, since two projects got compressed — make sure "faster" didn't mean "shallower." If you can't explain a piece of AI-drafted code in your own words, that's the flag to slow down on that piece specifically.
+- **If Week 1 compression feels too tight once you're in it:** better to let Esports Tracker bleed a day into Week 2 than ship something you can't explain. Sake Search can absorb a day of slack since it was already realistically paced.
+- **When you pick Project 3**, send it over and I'll build out the week-3 daily breakdown to match.
