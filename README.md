@@ -31,6 +31,7 @@ Merging the original two-week plan into one — lean hard on AI for scaffolding/
 - Odds API integration, `GET /matches/{id}/odds` **[AI-fast]**
 - Anomaly logic: odds shift > X% in Y hours **[hand-write — your headline interview topic]**
 - `GET /matches/anomalies`, 2 unit tests
+- CI pipeline — the yaml from above, landing in the same PR as the tests so the first workflow run actually exercises them
 
 **Sat July 4 — Frontend Scaffold + Visualization**
 - React (Vite + TS): navbar, match list, match detail **[AI-fast scaffold]**
